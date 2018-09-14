@@ -45,11 +45,9 @@ return request.parameters.count or 1
 -- Body payload: service args in application/json format
 local service = request.parameters.service
 local operation = request.parameters.operation
-local args = from_json(request.body)
 for i = 1, request.parameters.count or 1 do
-  result = murano.service_call(service, operation, args)
+  result = murano.service_call(service, operation, request.body)
   if result and result.error then
-    response.code = result.status
     return result.error
   end
 end

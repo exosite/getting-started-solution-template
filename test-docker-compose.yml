@@ -1,0 +1,18 @@
+version: '2.2'
+services:
+  app:
+    build: .
+    command:
+      - /bin/sh
+      - -c
+      - |
+        cp ./code/murano.jmx ./test.jmx
+        sed -i -e "s/<%domain%>/$$DOMAIN/g" ./test.jmx
+
+        jmeter -J jmeter.save.saveservice.output_format=xml -n -t ./test.jmx
+        cp ./*.jtl /code/
+
+    volumes:
+      - ./:/code
+    env_file:
+     - ./murano.env

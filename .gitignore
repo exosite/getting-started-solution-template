@@ -1,0 +1,4 @@
+.murano
+jmeter.log
+*.jtl
+murano.env
