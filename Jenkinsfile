@@ -9,7 +9,7 @@ pipeline {
     }
     agent any
     triggers {
-        cron('0 1 * * *')
+        cron('H 1 * * *')
     }
     parameters {
       string(name: 'domain', defaultValue: 'perftest.apps.dev1.murano.exosite-dev.com')

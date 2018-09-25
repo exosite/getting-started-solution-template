@@ -11,11 +11,21 @@
       <stringProp name="TestPlan.user_define_classpath"></stringProp>
     </TestPlan>
     <hashTree>
+      <Arguments guiclass="ArgumentsPanel" testclass="Arguments" testname="Variables" enabled="true">
+        <collectionProp name="Arguments.arguments">
+          <elementProp name="domain" elementType="Argument">
+            <stringProp name="Argument.name">domain</stringProp>
+            <stringProp name="Argument.value">${__P(DOMAIN)}</stringProp>
+            <stringProp name="Argument.metadata">=</stringProp>
+          </elementProp>
+        </collectionProp>
+      </Arguments>
+      <hashTree/>
       <ConfigTestElement guiclass="HttpDefaultsGui" testclass="ConfigTestElement" testname="Defaultsettings" enabled="true">
         <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
           <collectionProp name="Arguments.arguments"/>
         </elementProp>
-        <stringProp name="HTTPSampler.domain"><%domain%></stringProp>
+        <stringProp name="HTTPSampler.domain">${domain}</stringProp>
         <stringProp name="HTTPSampler.port">443</stringProp>
         <stringProp name="HTTPSampler.protocol">https</stringProp>
         <stringProp name="HTTPSampler.contentEncoding"></stringProp>
@@ -99,8 +109,6 @@
                 <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
                 <assertionsResultsToSave>5</assertionsResultsToSave>
                 <bytes>true</bytes>
-                <sentBytes>false</sentBytes>
-                <threadCounts>false</threadCounts>
                 <idleTime>true</idleTime>
                 <connectTime>true</connectTime>
               </value>
@@ -178,8 +186,6 @@
               <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
               <assertionsResultsToSave>5</assertionsResultsToSave>
               <bytes>true</bytes>
-              <sentBytes>false</sentBytes>
-              <threadCounts>false</threadCounts>
               <idleTime>true</idleTime>
               <connectTime>true</connectTime>
             </value>

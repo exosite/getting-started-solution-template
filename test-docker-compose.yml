@@ -6,10 +6,7 @@ services:
       - /bin/sh
       - -c
       - |
-        cp ./code/murano.jmx ./test.jmx
-        sed -i -e "s/<%domain%>/$$DOMAIN/g" ./test.jmx
-
-        jmeter -J jmeter.save.saveservice.output_format=xml -n -t ./test.jmx
+        jmeter -JDOMAIN=$$DOMAIN -J jmeter.save.saveservice.output_format=xml -n -t ./code/murano.jmx
         cp ./*.jtl /code/
 
     volumes:
