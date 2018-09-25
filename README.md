@@ -2,6 +2,34 @@
 
 This project includes a setup for running various load tests on Murano.
 
+## Setup
+
+This project is a Murano template and can be passed upon solution creation which will setup all endpoints.
+You then need to save the domain name of the solution api and pass it as Jenkins parameter or update the Jenkinsfile default value.
+
+## Jenkins load test
+
+This project contains the setup for daily run job.
+
+- ./murano.jmx contains the JMeter config
+- ./Dockerfile contains the basic JMeter image
+- ./test-docker-compose.yaml setup the JMeter image and run the tests
+- ./Jenkinsfile setup the test flow
+
+Setup Jenkins to discover the jenkinsfile and will auto-setup automatically.
+
+Current setup: https://jenkins.exosite.com/job/Murano/job/Murano_benchmark/
+
+**Note:** This requires the Jenkins Performance plugin (https://www.blazemeter.com/blog/how-to-use-the-jenkins-performance-plugin)
+
+### Test suite
+
+Current test includes:
+
+- hello world
+- keystore command
+- tsdb write
+
 ## External access
 
 End-to-End test of Murano Solution through the public custom API.
