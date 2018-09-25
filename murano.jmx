@@ -15,7 +15,7 @@
         <collectionProp name="Arguments.arguments">
           <elementProp name="domain" elementType="Argument">
             <stringProp name="Argument.name">domain</stringProp>
-            <stringProp name="Argument.value">${__P(DOMAIN)}</stringProp>
+            <stringProp name="Argument.value">${__P(DOMAIN,perftest.apps.dev1.murano.exosite-dev.com)}</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
         </collectionProp>
@@ -94,7 +94,7 @@
                 <label>false</label>
                 <code>true</code>
                 <message>false</message>
-                <threadName>false</threadName>
+                <threadName>true</threadName>
                 <dataType>false</dataType>
                 <encoding>false</encoding>
                 <assertions>false</assertions>
@@ -109,6 +109,7 @@
                 <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
                 <assertionsResultsToSave>5</assertionsResultsToSave>
                 <bytes>true</bytes>
+                <url>true</url>
                 <idleTime>true</idleTime>
                 <connectTime>true</connectTime>
               </value>
@@ -171,7 +172,7 @@
               <label>false</label>
               <code>true</code>
               <message>false</message>
-              <threadName>false</threadName>
+              <threadName>true</threadName>
               <dataType>false</dataType>
               <encoding>false</encoding>
               <assertions>false</assertions>
@@ -186,6 +187,7 @@
               <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
               <assertionsResultsToSave>5</assertionsResultsToSave>
               <bytes>true</bytes>
+              <url>true</url>
               <idleTime>true</idleTime>
               <connectTime>true</connectTime>
             </value>
@@ -194,7 +196,7 @@
         </ResultCollector>
         <hashTree/>
       </hashTree>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TSDB write" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="TSDB Write" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -209,7 +211,7 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="Request" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="TSDB Write" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">true</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments">
             <collectionProp name="Arguments.arguments">
@@ -250,7 +252,7 @@
               <label>false</label>
               <code>true</code>
               <message>false</message>
-              <threadName>false</threadName>
+              <threadName>true</threadName>
               <dataType>false</dataType>
               <encoding>false</encoding>
               <assertions>false</assertions>
@@ -265,6 +267,7 @@
               <saveAssertionResultsFailureMessage>false</saveAssertionResultsFailureMessage>
               <assertionsResultsToSave>5</assertionsResultsToSave>
               <bytes>true</bytes>
+              <url>true</url>
               <idleTime>true</idleTime>
               <connectTime>true</connectTime>
             </value>
