@@ -18,7 +18,7 @@ This project contains the setup for daily run job.
 
 Setup Jenkins to discover the jenkinsfile and will auto-setup automatically.
 
-Current setup: https://jenkins.exosite.com/job/Murano/job/Murano_benchmark/
+Current setup: https://jenkins.exosite.com/job/Murano/job/Core_Benchmark/
 
 **Note:** This requires the Jenkins Performance plugin (https://www.blazemeter.com/blog/how-to-use-the-jenkins-performance-plugin)
 
@@ -26,9 +26,14 @@ Current setup: https://jenkins.exosite.com/job/Murano/job/Murano_benchmark/
 
 Current test includes:
 
-- hello world
-- keystore command
-- tsdb write
+- Hello world
+- Keystore command (incr)
+- Keystore command (incr) x 10
+- Tsdb Write
+- Tsdb Write x 10
+- Tsdb MultiWrite
+- Tsdb Query
+- Tsdb Query x 10
 
 ## External access
 
