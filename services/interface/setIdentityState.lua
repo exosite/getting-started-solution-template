@@ -8,19 +8,13 @@ if config_io ~= nil then
   else
     Keystore.set({ key = "config_io", value = configIOString })
   end
-  local resourceCount = 0
   for key, value in pairs(operation) do
     if key ~= "config_io" and key ~= "identity" then
-      resourceCount = resourceCount + 1
-    end
-    if resourceCount > 0 then
-      break
+      operation.config_io = nil
+      return Device2.setIdentityState(operation)
     end
   end
-  if resourceCount == 0 then
-    return { status = 204, status_code = 204 }
-  end
-  operation.config_io = nil
+  return { status = 204, status_code = 204 }
 end
 
 return Device2.setIdentityState(operation)
