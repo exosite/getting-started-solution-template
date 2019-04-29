@@ -36,4 +36,28 @@ function configIO.set(configIO)
   end
 end
 
+function configIO.createChannel(resource, definition)
+  local channelName = ""
+  local properties = {}
+  local channelName, nestJson = string.match(resource, "data_in%.(%w+)%.?(.*)")
+  if channelName == "gps" and nestJson == "lng" or nestJson == "lat" then
+    properties.data_type = "LOCATION"
+    properties.data_unit = "LAT_LONG_ALT"
+  elseif nestJson ~= nil then
+    properties.data_type = "JSON"
+  elseif channelName then
+    properties.data_type = getType(definition)
+  end
+
+  if channelName ~= "" then
+    return channelName, {
+      display_name = channelName,
+      description = "",
+      properties = properties
+    }
+  else
+    return channelName, {}
+  end
+end
+
 return configIO

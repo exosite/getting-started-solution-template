@@ -1,4 +1,3 @@
-local configIO = require("configIO")
 operation.solution_id = nil
 local config_io = operation.config_io
 if config_io ~= nil then
@@ -8,6 +7,7 @@ if config_io ~= nil then
     operation.config_io = nil
     return Device2.setIdentityState(operation)
   else
+    local configIO = require("configIO")
     configIO.set(configIOTable)
     for key, value in pairs(operation) do
       if key ~= "config_io" and key ~= "identity" then
