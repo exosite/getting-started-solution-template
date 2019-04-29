@@ -1,3 +1,5 @@
+local configIO = require("configIO")
+
 function join(t1, t2)
   for _, v in pairs(t2) do
     table.insert(t1, v)
@@ -5,10 +7,17 @@ function join(t1, t2)
   return t1
 end
 
+function getType(definition)
+  if definition:match("char") ~= nil then
+    return "STRING"
+  end
+  return "NUMBER"
+end
+
 if service.service == "sigfox" and service.action == "updated" then
   local currentTime = os.time(os.date("!*t"))
   local timestamp = currentTime * 1000000
-  local isoTime = os.date("!%Y-%m-%dT%H:%M:%S+00:00", currentTime)
+  local isoTime = os.date("!%Y-%m-%dT%H:%M:%S.000Z", currentTime)
   local parameters = Config.getParameters({service = "sigfox"})
   local payloadConfigs = {}
   local channels = {}
@@ -24,11 +33,16 @@ if service.service == "sigfox" and service.action == "updated" then
     local properties = {}
     local nestJson = string.match(v.resource, "data_in%.%a+%.")
     if nestJson ~= nil then
-      channelName = string.sub(v.resource, string.len(nestJson) + 1)
-      properties.data_type = "JSON"
+      channelName = string.sub(v.resource, 9, string.len(nestJson) - 1)
+      if channelName == "gps" then
+        properties.data_type = "LOCATION"
+        properties.data_unit = "LAT_LONG_ALT"
+      else
+        properties.data_type = "JSON"
+      end
     elseif string.match(v.resource, "data_in%.") ~= nil then
       channelName = string.sub(v.resource, 9)
-      properties.data_type = "NUMBER"
+      properties.data_type = getType(v.definition)
     end
 
     if channelName ~= "" then
@@ -40,21 +54,12 @@ if service.service == "sigfox" and service.action == "updated" then
     end
   end
 
-  local configIO = {
-    last_edited = isoTime,
-    last_editor = "sigfox",
-    channels = channels
-  }
-  local configIOJson, err = json.stringify(configIO)
-  if err ~= nil then
-    print("The config_io encode to JSON error", err)
-  else
-    local configIOString, err = json.stringify({ timestamp = timestamp, values = configIOJson })
-    if err ~= nil then
-      print("The config_io encode to JSON error", err)
-    else
-      Keystore.set({ key = "config_io", value = configIOString })
-    end
+  if next(channels) ~= nil then
+    configIO.set({
+      last_edited = isoTime,
+      last_editor = "sigfox",
+      channels = channels
+    })
   end
 
   -- When Sigfox service configuration changes fetch new data
