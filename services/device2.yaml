@@ -1,4 +1,4 @@
-# Murano Product Spec File - Smart Lighbulb Example Application
+# device2 settings: see http://docs.exosite.com/reference/services/device2 for more information
 
 protocol:
   name: "onep:v1/http"

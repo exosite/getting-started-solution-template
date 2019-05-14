@@ -1,0 +1,5 @@
+# webservice settings: see http://docs.exosite.com/reference/services/webservice for more information
+
+# Tag to filter which endpoints to display on the auto-generated documentation
+documented_endpoints:
+  - public
