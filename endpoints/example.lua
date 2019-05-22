@@ -1,4 +1,5 @@
 --#ENDPOINT POST /api/user text/plain
+-- a lua handler for this endpoint
 return "new-user-id"
 
 --#ENDPOINT GET /api/user/{userId}
