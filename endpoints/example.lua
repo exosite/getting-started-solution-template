@@ -1,5 +1,5 @@
 --#ENDPOINT POST /api/user text/plain
--- a lua handler for this endpoint
+-- A lua handler for this endpoint, doc: http://docs.exosite.com/reference/services/webservice/#request
 return "new-user-id"
 
 --#ENDPOINT GET /api/user/{userId}
