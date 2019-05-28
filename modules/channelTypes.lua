@@ -1,4 +1,5 @@
-local types = [[[
+local types = [[
+[
 	{
 		"name": "Custom",
 		"id": "CUSTOM"
@@ -1557,6 +1558,7 @@ local types = [[[
 			}
 		]
 	}
-]]]
+]
+]]
 
 return from_json(types);
