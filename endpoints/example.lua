@@ -1,3 +1,4 @@
+-- File containing Webservice http endpoints
 --#ENDPOINT POST /api/user text/plain
 -- A lua handler for this endpoint, doc: http://docs.exosite.com/reference/services/webservice/#request
 return "new-user-id"
