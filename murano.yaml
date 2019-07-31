@@ -31,7 +31,7 @@ options:
   # Following options defines the update strategy when applying the template to a solution
   # This only applies to: Webservice/Websocket endpoints, Asset files & Modules
   # Service configuration & Eventhandler always follow a merge behavior
-  # merge: true, # To keep all existing items from solution that are not present in this template
+  merge: true, # To keep all existing items from solution that are not present in this template
   safeNamespace: vendor # Indicates the items with this prefix will not get remove or updated upon update
   # This will let each solution user to add custom files & behaviors surviving template verion update.
 
