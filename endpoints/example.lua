@@ -7,4 +7,8 @@ return "new-user-id"
 --#TAGS user public
 print("Fetch a given user" .. request.parameters.userId)
 return {id=request.parameters.userId}  -- json by default
+
+
+--#ENDPOINT GET /test/slash text/plain
+return "slash test"
 -- oef
