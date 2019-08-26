@@ -1,17 +1,37 @@
-# Enable solution2solution communication: see http://docs.exosite.com/reference/services/interface for more information
+# Expose this solution as a Murano service and enable solution-to-solution communication
+# Doc: http://docs.exosite.com/reference/services/interface
 name: my custom service
-operations:
-  - name: hello
-    description: Operation exposed by this custom service
-events:
-  - name: hello
-    description: |
-      Event triggered by this service.
-      Set a default script to call the hello operation defined above.
-    default_script: |
-      -- return Mycustomservice.hello() would work too, however it would break if user changes the service script_key.
-      return murano.service_call(context.service, "hello")
 
 parameters:
   - name: token
-    description: Secret token to activate features in this service
+    # type: string by default
+    maxLength: 200
+    description: |
+      An example configuration parameters to be provided by consumer settings
+      This will be automatically displayed on the consumer solution service configuration page.
+
+operations:
+- name: myOp
+  description: |
+    An operation usable by subscribers.
+    The script handling this call is done in the interface myOp.lua handler.
+  parameters:
+    type: object
+    description: payload
+    properties:
+      token:
+        type: string
+        x-exosite-restricted: true # -> cannot be provided from scripting
+        description: |
+          The value of the token configured in the subscriber service config
+          as defined by above parameters.
+      message:
+        type: string
+        description: Some message
+
+events:
+- name: myEvent
+  description: |
+    Event to subscribers you can trigger with
+    Interface.trigger({event = "myEvent", data = "hello"})
+    In this template triggered in 'scripts_asyncJob.lua'
