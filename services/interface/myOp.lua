@@ -4,7 +4,9 @@
 print("Subscriber " .. context.caller_id .. " says " .. event.message)
 
 -- You can also do some asyncronous job by trigging an asynchronous thread and reply by sending an event
--- This will trigger the ../scripts_asyncJob.lua script
+-- NOTE: This call execute an event in this solution and will trigger the ../scripts_asyncJob.lua script
+-- Not to be confused with Interface.trigger() which triggers events for subscribers.
+-- Doc: http://docs.exosite.com/reference/services/scripts/#trigger
 Scripts.trigger({
   event="asyncJob",
   mode="async",
