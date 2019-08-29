@@ -36,7 +36,8 @@ operations:
         x-exosite-restricted: true # -> Cannot be provided from scripting
         # This parameter as matching the 'token' parameters defined above will
         # automatically used the configuration value and doesn't need to be provided from scripting
-        description: As 'x-exosite-restricted: true' the description here will not be displayed
+        description: |
+          As 'x-exosite-restricted: true' the description here will not be displayed
       message:
         type: string
         description: Some message
