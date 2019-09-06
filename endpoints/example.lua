@@ -14,4 +14,20 @@ return {id=request.parameters.userId}  -- json by default
 --#TAGS user public
 print("Fetch a given user" .. request.parameters.userId)
 return {id=request.parameters.userId}  -- json by default
+
+--#ENDPOINT GET /api/ratelimit/withauth
+--#AUTH basic bearer
+--#RATELIMIT 1
+print("This endpoint needs a basic or bearer auth and has a rate limit 1 per minutes.")
+return 'OK'
+
+--#ENDPOINT GET /api/nolimit
+--#AUTH none
+print("This endpoint needs no token, which is by default.")
+return 'OK'
+
+--#ENDPOINT GET /api/ratelimit
+--#RATELIMIT 1
+print("This endpoint needs no token, which is by default.")
+return 'OK'
 -- oef
