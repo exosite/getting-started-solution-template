@@ -16,18 +16,24 @@ print("Fetch a given user" .. request.parameters.userId)
 return {id=request.parameters.userId}  -- json by default
 
 --#ENDPOINT GET /api/ratelimit/withauth
---#AUTH basic bearer
+--#TAGS security
+--#SECURITY basic bearer
 --#RATELIMIT 1
-print("This endpoint needs a basic or bearer auth and has a rate limit 1 per minutes.")
+print("This endpoint needs a basic or bearer auth and " ..
+"has a rate limit 1 per minute, per authentication credentials. " ..
+"If no credentials is provided by user a 401 status code is returned.")
 return 'OK'
 
---#ENDPOINT GET /api/nolimit
---#AUTH none
-print("This endpoint needs no token, which is by default.")
+--#ENDPOINT GET /api/noauthnolimit
+--#SECURITY none
+--#RATELIMIT 0
+print("Authentication and RateLimit are explicitly deactivated " ..
+"for this endpoint regardless of the API configuration.")
 return 'OK'
 
 --#ENDPOINT GET /api/ratelimit
 --#RATELIMIT 1
-print("This endpoint needs no token, which is by default.")
+print("No security defined, uses to the API default settings. " ..
+"If none defined, the ratelimit will be per the client Ip Address.")
 return 'OK'
 -- oef
