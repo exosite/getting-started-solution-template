@@ -25,6 +25,7 @@ print("This endpoint needs a basic or bearer auth and " ..
 return 'OK'
 
 --#ENDPOINT GET /api/noauthnolimit
+--#TAGS security
 --#SECURITY none
 --#RATELIMIT 0
 print("Authentication and RateLimit are explicitly deactivated " ..
@@ -32,6 +33,7 @@ print("Authentication and RateLimit are explicitly deactivated " ..
 return 'OK'
 
 --#ENDPOINT GET /api/ratelimit
+--#TAGS security
 --#RATELIMIT 1
 print("No security defined, uses to the API default settings. " ..
 "If none defined, the ratelimit will be per the client Ip Address.")

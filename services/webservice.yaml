@@ -4,6 +4,8 @@
 # Can be modified by user, as whitelisted in the options.safeConfigs in the murano.yaml file.
 documented_endpoints:
   - public
+  - default
+  - security
 
 api_info:
   title: Hello Api Title
