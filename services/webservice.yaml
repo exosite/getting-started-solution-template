@@ -28,7 +28,7 @@ api_info:
 
 # Set security schemes for this solution
 security_schemes:
-  - type: bearer
+  - type: bearer # In a specific endpoint
   - type: apiKey
     name: X-API-KEY
     in: header
