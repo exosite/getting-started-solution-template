@@ -28,7 +28,6 @@ api_info:
 
 # Set security schemes for this solution
 security_schemes:
-  - type: basic
   - type: bearer
   - type: apiKey
     name: X-API-KEY
