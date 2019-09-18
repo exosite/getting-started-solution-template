@@ -17,7 +17,7 @@ return {id=request.parameters.userId}  -- json by default
 
 --#ENDPOINT GET /api/ratelimit/withauth
 --#TAGS security
---#SECURITY basic bearer
+--#SECURITY bearer
 --#RATELIMIT 1
 print("This endpoint needs a basic or bearer auth and " ..
 "has a rate limit 1 per minute, per authentication credentials. " ..

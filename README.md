@@ -141,7 +141,7 @@ The `content_type` is optional and `application/json` is the default value.
 
 In addition to `--#ENDPOINT`, we enable you to define the following optional attributes:
 - `--#TAGS`, followed by a list of tags which are separated by space. eg: `--#TAGS public user`.
-- `--#SECURITY`, defines the authentication token needed for this endpoint, it could be `none`, `basic`, `bearer`.
+- `--#SECURITY`, defines the authentication token needed for this endpoint, it could be `none`, `basic`, `bearer` or `apiKey`.
 - `--#RATELIMIT`, defines the rate limit for this endpoint, the unit is request per minute per token if `--#SECURITY` is defined, eg: `--#RATELIMIT 10`.
 
 **Example: [./endpoints/example.lua](./endpoints/example.lua)**
