@@ -142,9 +142,14 @@ The `content_type` is optional and `application/json` is the default value.
 In addition to `--#ENDPOINT`, we enable you to define the following optional attributes:
 - `--#TAGS`, followed by a list of tags which are separated by space. eg: `--#TAGS public user`.
 - `--#SECURITY`, defines the authentication token needed for this endpoint, it could be `none`, `basic`, `bearer` or `apiKey`.
-- `--#RATELIMIT`, defines the rate limit for this endpoint, the unit is request per minute per token if `--#SECURITY` is defined, eg: `--#RATELIMIT 10`.
 
 **Example: [./endpoints/example.lua](./endpoints/example.lua)**
+
+You can set global security and rate_limit in [services/webservice.yaml](./services/webservice.yaml) file by add the following properties:
+- `security_schemes`, defines all the security schemes for this solution, we support `basic`, `bearer` and `apiKey`.
+- `security`, defines the authentication token needed for this solution, it could be `basic`, `bearer` or `apiKey`.
+- `rate_limit`, defines the rate limit for this solution, the unit is request per minute per token or per IP if token is not required.
+
 
 ```lua
 --#ENDPOINT POST /api/user
