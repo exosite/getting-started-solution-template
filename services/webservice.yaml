@@ -3,3 +3,21 @@
 # Tag to filter which endpoints to display on the auto-generated documentation
 documented_endpoints:
   - public
+
+api_info:
+  title: Hello Api Title
+  description: |
+      This is your solutions own custom API. You best get started with one of our many example APIs that are Turn-Key-Solutions for most common IoT problems. From there this solution interface allows you to fine tune what is there to your needs or add new functions that are specific to the business you're building.
+
+      Build something great!
+
+      In this example customers interfaces such as websites and mobile devices can directly interact with the domain to access the APIs defined here.
+
+      User registration is the first step and happens in this example via `POST /user/{email}` documented below. From there devices can be added and roles assigned.
+
+      #### Documentation
+      In future versions it will be also possible for you to change this documentation itself and publish it to your customers via `/docs`
+  version: v1
+  contact:
+    name: Exosite
+    email: help@exosite.com
