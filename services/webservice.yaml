@@ -1,5 +1,6 @@
 # webservice settings: see http://docs.exosite.com/reference/services/webservice for more information
 
 # Tag to filter which endpoints to display on the auto-generated documentation
+# Can be modified by user, as whitelisted in the options.safeConfigs in the murano.yaml file.
 documented_endpoints:
   - public

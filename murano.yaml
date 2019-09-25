@@ -13,17 +13,8 @@ info:
 #
 # The following sections are all optional.
 #
-#  - options
-#  - assets
-#  - endpoints
-#  - modules
-#  - services
-#  - init_script
-#
 # NOTE: They all have default values that should work for a majority of the projects,
 # but are all fully configurable to fit the way you want your project to be.
-#
-# Examples follow.
 #
 ####
 
@@ -34,6 +25,14 @@ options:
   merge: true, # To keep all existing items from solution that are not present in this template
   safeNamespace: vendor # Indicates the items with this prefix will not get remove or updated upon update
   # This will let each solution user to add custom files & behaviors surviving template verion update.
+  safeConfigs:
+    # Indicates which service configuration settings, defined in the .yaml files from the /services folder, would not overload existing value during updates and allow user to customize it.
+    # This is needed for any 'default' configuration value meant to be changed by user.
+    - device2 # Persists all user device2 changes
+    - interface.name # Persist only user changes on the 'name' parameters defined in ./services/interface/interface.yaml
+    - config.auto_update
+    # The ./services/webservice.yaml defines a default 'documented_endpoints' however as not specified here, changes will be overloaded
+    # - twilio # We don't need to whitelist twilio as we havn't defined any parameter in ./service/twilio.yaml
 
 assets:
   location: assets

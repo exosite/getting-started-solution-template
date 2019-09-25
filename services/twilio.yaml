@@ -1,1 +1,3 @@
 # Enable twilio service without a specific configuration: see http://docs.exosite.com/reference/services/twilio for more information
+
+# If you add a default parameter value here you need to add it the options.safeConfigs whitelist in murano.yaml to persist user changes.

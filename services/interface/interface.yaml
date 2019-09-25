@@ -1,7 +1,7 @@
 # Expose this solution as a Murano service and enable solution-to-solution communication
 # Doc: http://docs.exosite.com/reference/services/interface
 
-name: my custom service
+name: my custom service # Can be modified by user, as whitelisted in the options.safeConfigs in the murano.yaml file.
 
 parameters:
 # Configuration settings automatically displayed on the consumer solution service configuration page.

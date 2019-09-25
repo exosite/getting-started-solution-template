@@ -72,13 +72,19 @@ _Note:_ Deployment strategy options currently only apply to Webservice/Websocket
 ```yaml
 options:
   merge: true,
-  safeNamespace: vendor
+  safeNamespace: vendor,
+  safeConfigs:
+    - device2
+    - interface.name
+    - config.auto_update
+    - webservice.documented_endpoints
 ```
 
 Fieldname     | Format                | Default value        | Description
 --------------|-----------------------|----------------------|-----------------
 merge         | boolean               | false                | Indicates if existing items need to be removed (default) or kept, overlapping will be updated
 safeNamespace | string                |                      | Indicates a namespace prefix where existing items remains un-touched (no update or deletion)
+safeConfigs   | string[]              |                      | Indicates which service configuration settings, defined in the .yaml files from the /services folder, would not overload existing value during updates and allow user to customize it. This is needed for any 'default' configuration value meant to be changed by user.
 
 #### Assets section
 
@@ -99,6 +105,8 @@ include      | string/list | `'**/*'`     | Pattern (or list of patterns) to sel
 exclude      | list        | `['**/.*']`  | Pattern allowing to ignore files from the selection.                                                                                 | `['**/.*']`
 default_page | string      | `index.html` | Default asset to serve on the root path of the API `/`.                                                                              | `index.html`
 
+**Note:** If you want to allow instances of the solution to add/modify files, define & use the [`safeNamespace` option](#options-section). All files starting with the namespace will not be replace during template updates.
+
 #### Endpoints section
 
 This section declares the different endpoint and backend logic for the solution public API powered by the [Webservice service](http://docs.exosite.com/reference/services/webservice/).
@@ -117,6 +125,8 @@ location  | string      | `endpoints`                          | Root folder nam
 include   | string/list | `'**/*.lua'`                         | Pattern (or list of patterns) to select files in the location directory.<br>The pattern search is relative to the `location` folder. | `'**/*.lua'`
 exclude   | list        | `['*_test.lua', '*_spec.lua']`       | Pattern allowing to ignore files from the selection.                                                                                 | `[]`
 cors      | object      | `{'origin': ['http://localhost:*']}` | Cross origin resource sharing permission setting.                                                                                    | `{}`
+
+**Note:** If you want to allow instances of the solution to add/modify endpoints, define & use the [`safeNamespace` option](#options-section). All endpoints starting with the namespace will not be replace during template updates.
 
 ##### File content
 
@@ -158,6 +168,8 @@ location  | string      | `modules`                      | Root folder name cont
 include   | string/list | `'**/*.lua'`                   | Pattern (or list of patterns) to select files in the location directory.<br>The pattern search is relative to the `location` folder. | `'**/*.lua'`
 exclude   | list        | `['*_test.lua', '*_spec.lua']` | Pattern allowing to ignore files from the selection.                                                                                 | `[]`
 
+**Note:** If you want to allow instances of the solution to add/modify modules, define & use the [`safeNamespace` option](#options-section). All modules starting with the namespace will not be replace during template updates.
+
 ##### File content
 
 Selected file needs to contain valid Lua script and should be structured as standard Lua modules (http://lua-users.org/wiki/ModulesTutorial).
@@ -186,6 +198,8 @@ Can be accessed in event handlers or other modules using the file full path insi
 ```lua
 require("src.utils").hello() -- -> "World"
 ```
+
+**Note:** If you want to allow instances of the solution to add/modify files, define & use the [`safeNamespace` option](#options-section).
 
 #### Services section
 
@@ -271,3 +285,5 @@ provisioning:
 
 This method can also be used with an empty file to configured service which doesn't have any script logic or specific configuration parameters.
 Example: [./services/twilio.yaml](./services/twilio.yaml).
+
+**Note:** If you want to allow instances of the solution to modify a service configuration parameter defined in your template, use the [`safeConfigs` option](#options-section) to white-list the service or service.parameter. **All other configurations will overload user changes upon template updates.**
