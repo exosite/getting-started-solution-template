@@ -71,13 +71,15 @@ _Note:_ Deployment strategy options currently only apply to Webservice/Websocket
 
 ```yaml
 options:
-  merge: true,
-  safeNamespace: vendor,
+  merge: true
+  safeNamespace: vendor
   safeConfigs:
     - device2
     - interface.name
     - config.auto_update
     - webservice.documented_endpoints
+  abort_threshold: 4
+  abort_ratio: 0.5
 ```
 
 Fieldname     | Format                | Default value        | Description
@@ -85,6 +87,9 @@ Fieldname     | Format                | Default value        | Description
 merge         | boolean               | false                | Indicates if existing items need to be removed (default) or kept, overlapping will be updated
 safeNamespace | string                |                      | Indicates a namespace prefix where existing items remains un-touched (no update or deletion)
 safeConfigs   | string[]              |                      | Indicates which service configuration settings, defined in the .yaml files from the /services folder, would not overload existing value during updates and allow user to customize it. This is needed for any 'default' configuration value meant to be changed by user.
+abort_threshold | positive integer    | 4                    | Number of starting failed solution deployments before aborting a release. (If the first 4 solutions fail to deploy: abort)
+abort_ratio   | positive number 0     | 0.5                  | Ratio of failed solution deployments to cancel the release, starting from abort_threshold*2. (With 10 solutions successfully deployed, if 6 solutions failed: abort.)
+
 
 #### Assets section
 
