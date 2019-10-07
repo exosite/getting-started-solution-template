@@ -26,6 +26,15 @@ if service.service == "sigfox" and (service.action == "added" or service.action 
       if v.payloadConfig ~= nil then
         join(payloadConfigs, v.payloadConfig)
       end
+      if v.metadataConfig ~= nil then
+        for k, v in pairs(v.metadataConfig) do
+          if (k == "operatorName") then
+            join(payloadConfigs, {resource = k, definition = "char"})
+          else
+            join(payloadConfigs, {resource = k, definition = "number"})
+          end
+        end
+      end
     end
   end
 
