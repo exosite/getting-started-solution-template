@@ -27,11 +27,12 @@ if service.service == "sigfox" and (service.action == "added" or service.action 
         join(payloadConfigs, v.payloadConfig)
       end
       if v.metadataConfig ~= nil then
-        for k, v in pairs(v.metadataConfig) do
-          if (k == "operatorName") then
-            join(payloadConfigs, {resource = k, definition = "char"})
+        -- metaKey is SigfoxName, metaValue is MuranoName
+        for metaKey, metaValue in pairs(v.metadataConfig) do
+          if (metaKey == "operatorName") then
+            join(payloadConfigs, {{resource = metaValue, definition = "char"}})
           else
-            join(payloadConfigs, {resource = k, definition = "number"})
+            join(payloadConfigs, {{resource = metaValue, definition = "number"}})
           end
         end
       end
