@@ -40,7 +40,7 @@ assets:
   exclude: ['**/.*']
   default_page: index.html
 
-endpoints:
+endpoints: # the schema.yaml file will be loaded automatically, no special configuration needed.
   location: endpoints
   include: '**/*.lua'
   exclude: ['*_test.lua', '*_spec.lua']
