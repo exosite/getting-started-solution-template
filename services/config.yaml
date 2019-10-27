@@ -1,7 +1,0 @@
-# config settings: see http://docs.exosite.com/reference/services/config for more information
-
-# Disable auto-update so you can play and customize it freely
-# To update your template to latest version, check this option on the Murano UI
-# WARNING: All changes not included in the 'vendor' safe namespace will then be removed
-auto_update: false # Default is true.
-# Can be modified by user, as whitelisted in the safeConfigs options in the murano.yaml file.
