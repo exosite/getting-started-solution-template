@@ -35,7 +35,7 @@
 #       - resource: "data_in.gpslon"
 #         definition: "8:uint:32"
 #     metadataConfig:
-#       # the metadata is pre-defined in sigfox, this config is to customize the metadata name.
+#       # The metadata is pre-defined in sigfox, this config is to customize the metadata name.
 #       # eg: you can customize `batt` as `my_battery_level`.
 #       batt: battery
 #       temp: temperature
