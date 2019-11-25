@@ -9,7 +9,7 @@ if murano2cloud then
   setmetatable(d2, {
     __index = function(t, op)
       if murano2cloud[op] then
-        return function call(data)
+        return function(data)
           local cloudResult = murano2cloud[op](data)
           if cloudResult and cloudResult.error then
             return cloudResult
