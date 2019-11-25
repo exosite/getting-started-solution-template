@@ -4,6 +4,7 @@ local cloud2murano = {}
 
 local cloudServiceName = require("c2c.murano2cloud").alias
 local transform = require("vendor.c2c.transform")
+local device2 = murano.services.device2 -- to bypass the proxy (device2.lua)
 
 -- Propagate event to Murano applications
 function cloud2murano.trigger(identity, event_type, payload, options)
@@ -23,18 +24,18 @@ function cloud2murano.trigger(identity, event_type, payload, options)
 end
 
 function cloud2murano.provisioned(identity, data, options)
-  Device2.addIdentity({ identity = identity })
+  device2.addIdentity({ identity = identity })
   cloud2murano.trigger(identity, "provisioned", nil, options)
 end
 
 function cloud2murano.deleted(identity, data, options)
-  Device2.removeIdentity({ identity = identity })
+  device2.removeIdentity({ identity = identity })
   cloud2murano.trigger(identity, "deleted", nil, options)
 end
 
 function cloud2murano.data_in(identity, data, options)
   data = transform.data_in(data) -- template user customized data transforms
-  result = Device2.setIdentityState({
+  result = device2.setIdentityState({
     identity = identity,
     data_in = data
   })
@@ -73,10 +74,14 @@ function cloud2murano.sync(data, options)
   end
 end
 
+local murano2cloud = require('murano2cloud')
+
 function cloud2murano.syncAll()
-  local results = require('murano2cloud').sync()
-  if results.error then
-    return log.error(results.error)
+  if murano2cloud and murano2cloud.sync then
+    local results = require('murano2cloud').sync()
+    if results.error then
+      return log.error(results.error)
+    end
   end
   for i, result in ipairs(results) do
     if result.device_id then

@@ -15,23 +15,42 @@ Some example of 3rd party integration based on this template.
 
 Following customization steps are required to accomplish the integration.
 
-1. Define & publish the 3rd party API as a Murano service
-1. Update this project
-1. Publish the 3rd party integration template to Murano
+1. [Add the 3rd party API as Murano service](add-the-3rd-party-api-as-murano-service)
+  1. [Define the OpenApi Swagger](define-the-openapi-swagger)
+  1. [Publish it on the Exchange Marketplace](publish-it-on-the-exchange-marketplace)
+1. [Update the Template project](update-the-template-project)
+  1. [Publish the Cloud integration template](publish-the-cloud-integration-template)
+1. [Customization](customization)
+  1. [Setup for ExoSense](setup-for-exoSense)
+  1. [IoT-Connector integration](iot-connector-integration)
+1. [Known limitations](known-limitations)
 
-##### 3rd party Murano service
+---
+
+### Add the 3rd party API as Murano service
+
+This section is to enable Murano to connect to an interact with the 3rd party cloud.
+If you intend to only support incoming callbacks, you can ignore this section.
+
+Once the below steps are ready, add a new configuration file ./services/<CloudServiceName>.yaml in this template.
+
+##### Define the OpenApi Swagger
 
 First you need to define the 3rd party service API using the OpenApi swagger definition.
 You can follow the general documentation from https://github.com/exosite/open_api_integration.
-But also follow the guidelines from the example available on this project in ./<CloudServiceSwagger>.yaml.
+But also follow the guidelines from the example available on this project in ./<CloudServiceSwagger>.yaml .
 
 For example this sample assumes the use of a `token` parameter for authentication to the 3rd party.
+
+##### Publish it on the Exchange Marketplace
 
 Publish the service swagger on Murano Exchange IoT marketplace (http://docs.exosite.com/reference/ui/exchange/authoring-elements-guide/) and test your integration with a blank Murano solution.
 
 Once ready publish the service as 'Public' so it can be used. (This action is currently limited so you might need to contact Exosite support).
 
-##### Update this project
+---
+
+### Update the Template project
 
 This project now need to be adapted for the 3rd party connectivity needs.
 
@@ -46,7 +65,8 @@ Before getting started: to be compatible with IoT connector (PDaaS) for a later 
 
 Update `<CloudServiceName>` by the actual service alias you used to publish the service on Murano IoT marketplace.
 Important in Lua, service starts with a Capital letter.
-Don't forget to rename the files [service/<CloudServiceName>.yaml](service/<CloudServiceName>.yaml) too.
+
+If not done yet create a configuration file under [./service/<CloudServiceName>.yaml](./service/<CloudServiceName>.yaml) containing the service fixed settings. If all configuration need to be provided by the users, leave the file blank.
 
 **3. Modify the callback authentication logic**
 
@@ -70,7 +90,7 @@ The payload structure needed in this files depends on the the swagger definition
 If the 3rd party requires a regular pooling syncronisation, you need to enable the internal in the ./services/timer.yaml config.
 The default logic set in the [services/timer_timer.lua](services/timer_timer.lua) eventhandler will use the same structure as for callbacks.
 
-##### Publish the 3rd party integration template to Murano
+#### Publish the Cloud integration template
 
 Once the project setup is ready and updated on your repository.
 You can test it by creating a new product `From scratch` on the Murano solution page and provide your git repo url.
@@ -85,6 +105,8 @@ Once satisfied you will need to publish a Template element on Murano IoT marketp
 1. (Optional) If callback setup is not automated, user copy/past the callback url from there and add it to the 3rd party setup.
 1. The product is then ready to use and can be added to any Murano applications as a regular product.
 
+---
+
 ### Customization
 
 You can also provide some tooling for the template user to extend your integration.
@@ -98,7 +120,7 @@ If the user don't want to get update, automated updates can be deactivated on th
 _IMPORTANT_: To get persistent product state, related resources needs to be defined in the device2 service resources.
 While editor of this template can change the default setup in [services/device2.yaml](services/device2.yaml) (default setup for Exosense compatibility) are needed by the user from the Product page under `Resources` all resources must have the option `sync` set to `false`!
 
-##### Additional setup for ExoSense
+#### Setup for ExoSense
 
 ExoSense application datamodel nest device data into the 'data_in' product resource of type JSON.
 In order to be utilized from exosense the 'data_in' content structure, named channels, have to be described in the 'config_io' resource.
@@ -106,7 +128,7 @@ In order to be utilized from exosense the 'data_in' content structure, named cha
 The device2 data structure set in [services/device2.yaml](services/device2.yaml) is already Exosense compatible.
 However template user needs to update the product [modules/vendor/configIO.lua](modules/vendor/configIO.lua) Module and updates the data structure specific to the product.
 
-##### Murano IoT Connector (PDaaS) integration
+#### IoT-Connector integration
 
 This template can be extended as an IoT Connector (PDaaS) to provide & publish product instance to multiple internal and external applications.
 
@@ -118,6 +140,8 @@ Assuming you have a workable 3rd party cloud integrated and followed the above `
 1. Merge init.lua & murano.yaml: No changes from PDaaS should be required, however you need to enable the 'Assets' options
 1. Push your changes to the PDaaS-Cloud2Cloud product branch
 1. Publish the new template to Murano Exchange as described above
+
+---
 
 ### Known limitations
 
