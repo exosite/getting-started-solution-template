@@ -59,13 +59,14 @@ x-exosite-config-parameters:
     type: string
     description: |
       The credentials to authenticate the 3rd party api to call Murano api.
-      The initial token is generated automatically, however you can set here a new value
-      if the case the original token got compromised.
+      The initial token is generated automatically, however you can set here a new value.
+      You can also leave it blank to disable authentication. (Not recommended)
+      The token can be passed either by the `token` query parameter, or `authorization` header.
   - name: callback_url
     type: string
     description: The callback url to setup in 3rd party settings
     # readOnly: true # Generated automatically in ./modules/authentication.lua
-    # Supported soon
+    # The readOnly tag support will be added soon
 
 ################################################################################
 #                                Operations                                    #
