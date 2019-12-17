@@ -4,6 +4,7 @@ local cloud2murano = {}
 
 local configIO = require("vendor.configIO")
 local transform = require("vendor.c2c.transform")
+local mcrypto = require("staging.mcrypto")
 local device2 = murano.services.device2 -- to bypass the proxy (device2.lua)
 -- Beware of not creating recursive reference with murano2cloud
 
@@ -26,7 +27,9 @@ end
 
 function cloud2murano.provisioned(identity, data, options)
   -- A new device needs to be created
-  local result = device2.addIdentity({ identity = identity })
+  if not options then options = {} end
+  local key = mcrypto.b64url_encode(mcrypto.rand_bytes(20))
+  local result = device2.addIdentity({ identity = identity, auth = { key = key, type = "password" } })
   if result and result.error then return result end
 
   -- Set configIO default value
