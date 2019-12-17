@@ -24,5 +24,5 @@ return {
   -- This enables to define a different data schema per device.
   -- By default (false) the above config IO is injected on the fly to the application
   timestamp = 1563939215, -- Unix timestamp of this schema version update
-	config_io = config_io,
+  config_io = config_io
 }
