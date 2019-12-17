@@ -1,4 +1,3 @@
-operation.solution_id = nil
 local identities = Device2.listIdentities(operation)
 if identities.error then
   return identities
@@ -11,8 +10,12 @@ if configIO and configIO.config_io and identities.devices and next(identities.de
     set = configIO.config_io,
     reported = configIO.config_io
   }
+  -- Inject config IO only if not set
   for k, identity in pairs(identities.devices) do
-    identities.devices[k].state.config_io = config_io
+    local cio = identities.devices[k].state.config_io
+    if not cio or not cio.set or cio.set:sub(1, 2) == "<<" then
+      identities.devices[k].state.config_io = config_io
+    end
   end
 end
 

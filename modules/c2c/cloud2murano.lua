@@ -2,6 +2,7 @@ local cloud2murano = {}
 -- This module authenticates the 3rd party cloud callback requests
 -- To be updated depending on the security requirements
 
+local configIO = require("vendor.configIO")
 local transform = require("vendor.c2c.transform")
 local device2 = murano.services.device2 -- to bypass the proxy (device2.lua)
 -- Beware of not creating recursive reference with murano2cloud
@@ -27,6 +28,16 @@ function cloud2murano.provisioned(identity, data, options)
   -- A new device needs to be created
   local result = device2.addIdentity({ identity = identity })
   if result and result.error then return result end
+
+  -- Set configIO default value
+  local config_io
+  if configIO and configIO.set_to_device then
+    config_io = configIO.config_io
+  else
+    config_io = "<<Config IO is defined globally in the module `vendor.configIO`.>>"
+  end
+  device2.setIdentityState({ identity = identity, config_io = config_io })
+
   if result and result.status == 204 then
     return cloud2murano.trigger(identity, "provisioned", nil, options)
   end
