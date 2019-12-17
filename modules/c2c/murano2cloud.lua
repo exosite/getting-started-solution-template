@@ -14,37 +14,38 @@ local cloud2murano = require("c2c.cloud2murano")
 -- See all operations available in http://docs.exosite.com/reference/services/device2
 
 function murano2cloud.addIdentity(data)
-  return murano.services[murano2cloud.alias].addIdentity({ identity = data.identity })
+  local result = murano.services[murano2cloud.alias].addIdentity({ identity = data.identity })
+  if result and result.error then return result end
+  return data
 end
 
 function murano2cloud.removeIdentity(data)
-  return murano.services[murano2cloud.alias].removeIdentity({ identity = data.identity })
+  local result = murano.services[murano2cloud.alias].removeIdentity({ identity = data.identity })
+  if result and result.error then return result end
+  return data
 end
 
 function murano2cloud.setIdentityState(data)
-  local identity = data.identity
-  data.identity = nil
-  data = transform.data_out(data) -- template user customized data transforms
-  return murano.services[murano2cloud.alias].setIdentitystate({ identity = identity, data = to_json(data) })
-end
-
-function murano2cloud.getIdentity(data)
-  return Device2.getIdentityState(data)
+  local remoteData = transform.data_out(data) -- template user customized data transforms
+  local result = murano.services[murano2cloud.alias].setIdentitystate({ identity = data.identity, data = to_json(remoteData) })
+  if result and result.error then return result end
+  return data
 end
 
 function murano2cloud.listIdentities(data)
-  return murano2cloud.syncAll({notrigger = true}) -- see below
+  local result = murano2cloud.syncAll({notrigger = true}) -- see below
+  if result and result.error then return result end
+  return data
 end
 
 -- Fetch and update 1 device, for lazy update
 function murano2cloud.getIdentityState(data)
   local result = murano.services[murano2cloud.alias].getIdentityState({ identity = data.identity })
   if result then
-    if result.error then
-      return result
-    end
-    return cloud2murano.data_in(data.identity, result, {notrigger = true})
+    if result.error then return result end
+    cloud2murano.data_in(data.identity, result, {notrigger = true})
   end
+  return data
 end
 
 -- Note: you can also overload the native Device2 service object to bypass the `c2c.device2` wrapper.
