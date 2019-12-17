@@ -6,7 +6,12 @@ local transform = {}
 
 function transform.data_in(cloud_data)
   -- Transform data from the 3rd party service to Murano
-  return cloud_data
+  return {
+    -- Required device identity
+    identity = cloud_data.identity or cloud_data.device_id,
+    -- Device data, here following ExoSense data model
+    data_in = cloud_data
+  }
 end
 
 function transform.data_out(murano_data)
