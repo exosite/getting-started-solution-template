@@ -11,10 +11,11 @@ if murano2cloud then
       if murano2cloud[op] then
         return function(data)
           local cloudResult = murano2cloud[op](data)
-          if cloudResult and cloudResult.error then
+          if not cloudResult or cloudResult.error then
             return cloudResult
           end
-          return murano.services.device2[op](data)
+           -- pass the updated result to the device2 function
+          return murano.services.device2[op](cloudResult)
         end
       end
 
