@@ -37,7 +37,9 @@ function configIO.set(config_io)
 
   local configIOTable = { timestamp = timestamp * 1000000, config_io = config_io }
   if vendorIO and vendorIO.config_io then
-    if vendorIO.timestamp then configIOTable.timestamp = vendorIO.timestamp
+    if vendorIO.timestamp then
+      configIOTable.timestamp = vendorIO.timestamp
+    end
     configIOTable.config = configIO.merge(vendorIO.config_io, config_io)
   end
   if type(configIOTable.config_io) ~= "string" then
