@@ -1561,4 +1561,4 @@ local types = [[
 ]
 ]]
 
-return from_json(types);
+return json.parse(types);

@@ -1,45 +1,63 @@
+-- This files generates the configIO & merge it with CUSTOM channels defined in 'vendor.configIO'
+
 local configIO = {}
+local vendorIO = require("vendor.configIO")
 
 function configIO.get()
   local now = os.time(os.date("!*t"))
-  if configIOCache == nil or now - configIOCache_ts > 10 then
+  if globalConfigIOCache == nil or now - globalConfigIOCache_ts > 10 then
     local result = Keystore.get({ key = "config_io" })
-    if result ~= nil and result.value ~= nil then
+    if result ~= nil and result.value ~= nil and result.value ~= "" then
       -- Following is a VM global value cached on hot VM
-      configIOCache, err = json.parse(result.value)
+      globalConfigIOCache, err = json.parse(result.value)
       if err ~= nil then
-        print("The config_io parse error", err)
+        log.error("'config_io' parsing error", err)
       else
-        configIOCache_ts = now
+        globalConfigIOCache_ts = now -- global
       end
     end
   end
-  if configIOCache == nil then
-    return { config = "" }
-  end
-  local configIOString, err = json.stringify(configIOCache.config)
-  if err ~= nil then
-    print("The config_io encode to JSON error", err)
-    return { config = "" }
-  else
-    return { timestamp = configIOCache.timestamp, config = configIOString }
-  end
+  return globalConfigIOCache
 end
 
-function configIO.set(configIO)
+function configIO.merge(configIO_a, configIO_b)
+  local config_io = {}
+  if type(configIO_a) == "string" then configIO_a = json.parse(configIO_a)
+  if type(configIO_b) == "string" then configIO_b = json.parse(configIO_b)
+
+  for k,v in pairs(configIO_a.channels or {}) do config_io[k] = v end
+  for k,v in pairs(configIO_b.channels or {}) do config_io[k] = v end
+  return config_io
+end
+
+function configIO.set(config_io)
+  if type(config_io) == "string" then json.parse(config_io) end
   local timestamp = os.time(os.date("!*t"))
-  local configIOTable = { timestamp = timestamp * 1000000, config = configIO }
+  config_io.last_edited = os.date("!%Y-%m-%dT%H:%M:%S.000Z", timestamp)
+
+  local configIOTable = { timestamp = timestamp * 1000000, config_io = config_io }
+  if vendorIO and vendorIO.config_io then
+    if vendorIO.timestamp then configIOTable.timestamp = vendorIO.timestamp
+    configIOTable.config = configIO.merge(vendorIO.config_io, config_io)
+  end
+  if type(configIOTable.config_io) ~= "string" then
+    configIOTable.config_io = json.stringify(configIOTable.config_io)
+    if not configIOTable.config_io then
+      log.error("'config_io' encoding error", err, configIOTable.config_io)
+      return nil, err
+    end
+  end
   local configIOString, err = json.stringify(configIOTable)
   if err ~= nil then
-    print("The config_io encode to JSON error", err)
-  else
-    configIOCache = configIOTable
-    configIOCache_ts = timestamp
-    Keystore.set({ key = "config_io", value = configIOString })
+    log.error("'config_io' encoding error", err, configIOTable)
+    return nil, err
   end
+  globalConfigIOCache = configIOTable
+  globalConfigIOCache_ts = timestamp
+  return Keystore.set({ key = "config_io", value = configIOString })
 end
 
-function getPrimitivType(definition, nestJson)
+local function getPrimitivType(definition, nestJson)
   if nestJson and nestJson ~= "" then
     return "JSON"
   elseif definition:match("bool") ~= nil then

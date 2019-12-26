@@ -8,11 +8,11 @@ end
 local configIO = require("configIO")
 local configIOData = configIO.get()
 
-if configIOData.config ~= "" then
+if configIOData.config_io ~= "" then
   identityState.config_io = {
     timestamp = configIOData.timestamp,
-    set = configIOData.config,
-    reported = configIOData.config
+    set = configIOData.config_io,
+    reported = configIOData.config_io
   }
 end
 

@@ -7,15 +7,12 @@ end
 
 if service.service == "sigfox" and (service.action == "added" or service.action == "updated") then
   local configIO = require("configIO")
-  local currentTime = os.time(os.date("!*t"))
-  local timestamp = currentTime * 1000000
-  local isoTime = os.date("!%Y-%m-%dT%H:%M:%S.000Z", currentTime)
   local parameters = Config.getParameters({service = "sigfox"})
   local payloadConfigs = {}
   local channels = {}
   local current = configIO.get()
-  if current ~= nil and current.config ~= "" then
-    local current_config, err = json.parse(current.config)
+  if current ~= nil and current.config_io ~= "" then
+    local current_config, err = json.parse(current.config_io)
     if err == nil then
       channels = current_config.channels
     end
@@ -46,11 +43,7 @@ if service.service == "sigfox" and (service.action == "added" or service.action 
     end
   end
 
-  configIO.set({
-    last_edited = isoTime,
-    last_editor = "sigfox",
-    channels = channels
-  })
+  configIO.set({ channels = channels })
 
   -- When Sigfox service configuration changes fetch new data
   -- Eg. if password change or else..
