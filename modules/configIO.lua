@@ -22,8 +22,8 @@ end
 
 function configIO.merge(configIO_a, configIO_b)
   local config_io = {}
-  if type(configIO_a) == "string" then configIO_a = json.parse(configIO_a)
-  if type(configIO_b) == "string" then configIO_b = json.parse(configIO_b)
+  if type(configIO_a) == "string" then configIO_a = json.parse(configIO_a) end
+  if type(configIO_b) == "string" then configIO_b = json.parse(configIO_b) end
 
   for k,v in pairs(configIO_a.channels or {}) do config_io[k] = v end
   for k,v in pairs(configIO_b.channels or {}) do config_io[k] = v end
