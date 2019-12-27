@@ -13,7 +13,7 @@ function configIO.get()
       if err ~= nil then
         log.error("'config_io' parsing error", err)
       else
-        globalConfigIOCache_ts = now -- global
+        globalConfigIOCache_ts = now
       end
     end
   end
