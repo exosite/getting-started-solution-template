@@ -3,6 +3,22 @@
 local configIO = {}
 local vendorIO = require("vendor.configIO")
 
+function configIO.setState(state)
+  local cio = state.config_io
+  if cio and cio.set and cio.set:sub(1, 2) ~= "<<" then
+    return state
+  end
+  local configIOData = configIO.get()
+  if configIOData and configIOData.config_io then
+    state.config_io = {
+      timestamp = configIOData.timestamp,
+      set = configIOData.config_io,
+      reported = configIOData.config_io
+    }
+  end
+  return state
+end
+
 function configIO.get()
   local now = os.time(os.date("!*t"))
   if globalConfigIOCache == nil or now - globalConfigIOCache_ts > 10 then

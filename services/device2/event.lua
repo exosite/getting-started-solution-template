@@ -1,10 +1,14 @@
 
 local transform = require("vendor.transform")
-if event.payload ~= nil and transform ~= nil and transform.convertIdentityState ~= nil then
+if event.type == "provisioned" then
+  Device2.setIdentityState({
+    identity = identity,
+    config_io = "<<Config IO is defined globally in the module `vendor.configIO`>>"
+  })
+end
+if event.payload and transform and transform.convertIdentityState then
   for i, data in ipairs(event.payload) do
-    if data.values ~= nil and data.values.data_in ~= nil then
-      event.payload[i].values = transform.convertIdentityState(data.values)
-    end
+    data.values = transform.convertIdentityState(data.values)
   end
 end
 
