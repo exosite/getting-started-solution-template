@@ -56,7 +56,7 @@ function configIO.set(config_io)
     if vendorIO.timestamp then
       configIOTable.timestamp = vendorIO.timestamp
     end
-    configIOTable.config = configIO.merge(vendorIO.config_io, config_io)
+    configIOTable.config_io = configIO.merge(vendorIO.config_io, config_io)
   end
   if type(configIOTable.config_io) ~= "string" then
     configIOTable.config_io = json.stringify(configIOTable.config_io)
