@@ -31,7 +31,7 @@ function configIO.merge(configIO_a, configIO_b)
 end
 
 function configIO.set(config_io)
-  if type(config_io) == "string" then json.parse(config_io) end
+  if type(config_io) == "string" then config_io = json.parse(config_io) end
   local timestamp = os.time(os.date("!*t"))
   config_io.last_edited = os.date("!%Y-%m-%dT%H:%M:%S.000Z", timestamp)
 
