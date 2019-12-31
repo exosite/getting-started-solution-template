@@ -20,7 +20,7 @@ local transform = {}
 --    In this example we generate dynamically a new channel 'sum_ab'
 --    This virtual custom channel MUST be defined in the module 'vendor.configIO'
 --    if type(data_in.a) == "number" and type(data_in.b) == "number" then
---      data_in.sum_ab = data_in.a and data_in.b
+--      data_in.sum_ab = data_in.a + data_in.b
 --    end
 --   return json.stringify(data_in)
 -- end
