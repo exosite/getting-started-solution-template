@@ -255,12 +255,12 @@ Assuming you have a workable 3rd party cloud integrated and followed the above `
 1. Create a new branch or repo to keep the stand-alone version.
 1. Clone the Iot Connector (https://github.com/exosite/pdaas_template) repository.
 1. Merge Modules, Assets (`dist/` in folder `app`) & Endpoints: Different namespaces are used and you should be able to copy all modules files into your project modules.
-1. Merge Services: Some files will overlap, here are rules to follow :
+1. Merge Services: some files will overlap, here are rules to follow :
     - config.yaml can be replaced.
     - in device2.yaml, copy only non overlapping `names` in resources and merge manually the rest (`tags_schema`).
 1. In murano.yaml, copy from Pdaas file following parts into target :  
-    - add non overlapping safeConfigs lines.
-    - add endpoints definition and assets, and change location to target correct folder.
+    - add non overlapping `safeConfigs` lines.
+    - add endpoints definition and assets, and change `location` to target correct folder.
 1. Merge init.lua manually.
 1. Push your changes to the PDaaS-Cloud2Cloud product branch.
 1. Publish the new template to Murano Exchange as described above.
