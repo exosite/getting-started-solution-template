@@ -2,7 +2,7 @@
 local transform = require("vendor.transform")
 if event.type == "provisioned" then
   Device2.setIdentityState({
-    identity = identity,
+    identity = event.identity,
     config_io = "<<Config IO is defined globally in the module `vendor.configIO`>>"
   })
 end
