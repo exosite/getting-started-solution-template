@@ -18,7 +18,7 @@ This project is a [Sigfox](https://www.sigfox.com) integration for Murano Produc
 - Finally add the 12bytes resource mapping using the [Sigfox decoding grammar](http://docs.exosite.com/quickstarts/sigfox/decoding-grammar/)
 - All set, any device reporting to your [Sigfox deviceType Id](https://backend.sigfox.com/devicetype/list) will be provisionned automatically in your Murano Product.
 
-Find More information on http://docs.exosite.com/quickstarts/sigfox/
+Find More information on http://docs.exosite.com/development/services/sigfox/
 
 ---
 
