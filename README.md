@@ -15,7 +15,7 @@ This project is a [Sigfox](https://www.sigfox.com) integration for Murano Produc
 - Go to the product configuration on [Murano -> Sigfox Product -> services -> Sigfox](https://www.exosite.io/business/<business>/connectivity/<product>/services)
 - Input your Sigfox API credentials generated from your [Sigfox backend account](https://backend.sigfox.com)
 - Add one (or more) callbacks matching your [Sigfox deviceType Id](https://backend.sigfox.com/devicetype/list)
-- Finally add the 12bytes resource mapping using the [Sigfox decoding grammar](http://docs.exosite.com/quickstarts/sigfox/decoding-grammar/)
+- Finally add the 12bytes resource mapping using the [Sigfox decoding grammar](https://docs.exosite.com/development/services/sigfox/decoding-grammar/)
 - All set, any device reporting to your [Sigfox deviceType Id](https://backend.sigfox.com/devicetype/list) will be provisionned automatically in your Murano Product.
 
 Find More information on http://docs.exosite.com/development/services/sigfox/
