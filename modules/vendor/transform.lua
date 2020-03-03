@@ -50,7 +50,11 @@ local transform = {}
 
 -- Below an example of transforming uplink message from a device
 -- decoded values in string will be then stored in data_in
---   state.data_in = json.stringify(transform.DecodeMode(state.uplink))
+--   if type(state.uplink) == "table" then
+--     state.data_in = json.stringify(transform.DecodeMode(state.uplink.reported))
+--   else
+--     state.data_in = json.stringify(transform.DecodeMode(state.uplink))
+--   end
 
 --   if state.data_in.reported == nil then
 --     state.data_in = convertState(state.data_in)
