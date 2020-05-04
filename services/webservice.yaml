@@ -40,3 +40,5 @@ security:
 
 # Set rate limit for this solution
 rate_limit: 0
+
+x-exosite-token: "myprivatetoken"
