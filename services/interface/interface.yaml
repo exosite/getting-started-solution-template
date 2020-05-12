@@ -1,1 +1,29 @@
-type: P
+# Enable solution2solution communication: see http://docs.exosite.com/reference/services/interface for more information
+name: ExoSense Multi-Control
+
+# Access to Murano services in ExoSense solution through event triggers
+events:
+  - name: getDownloadUrl
+    description: |
+      Get the download URL for a content
+    default_script: |
+      local moses = require('src.moses')
+
+      local out = Content.list({
+        full=true,
+        tags = to_json({type = event.ftype,
+                        name = event.fname})
+      })
+
+      if out and moses.size(out) > 0 then
+        local expires_in = event.expires_in or 60
+        local dload_info = Content.download({
+          id = out[1].id,
+          expires_in = expires_in
+        })
+
+        if dload_info and dload_info.url then
+          dload_info["tags"] = out[1].tags
+          return dload_info
+        end
+      end
