@@ -1,9 +1,9 @@
 # Enable solution2solution communication: see http://docs.exosite.com/reference/services/interface for more information
-name: ExoSense22 Multi-Control
+name: ExoSense3 Multi-Control
 
 # Access to Murano services in ExoSense solution through event triggers
 events:
-  - name: getDownloadUrl2
+  - name: getDownloadUrl3
     description: |
       Get the download URL for a content
     default_script: |
