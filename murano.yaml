@@ -1,10 +1,10 @@
 formatversion: 1.0.0
 
 info:
-  name: <template_name>
-  summary: One line summary of <template_name>
+  name: MUR-7779 GETTING STARTED
+  summary: One line summary of MUR-7779 GETTING STARTED
   description: |
-    In depth description of <template_name>
+    In depth description of MUR-7779 GETTING STARTED
     With lots of details.
   authors: ['Someone <b@someone.com> (http://someone.tumblr.com/)']
   version: 1.0.0
