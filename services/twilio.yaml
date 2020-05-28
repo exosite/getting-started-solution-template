@@ -2,5 +2,5 @@
 
 # If you add a default parameter value here you need to add it the options.safeConfigs whitelist in murano.yaml to persist user changes.
 ---
-AccountSid: 1234567890123456789012345678901234
-AuthToken: 123456789
+AccountSid: "1234567890123456789012345678901234"
+AuthToken: "123456789"
