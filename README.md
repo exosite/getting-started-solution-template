@@ -1,8 +1,6 @@
 # Getting Started Solution Template
 
-This page describes the project structure used to set and update a Murano Solution. Murano templates can be used in two distinct ways:
-- To synchronize an existing Murano solution with a local project folder using the [Murano-CLI](http://docs.exosite.com/development/tools/murano-cli/).
-- To publish it as template element on the Murano Exchange marketplace to make it available from other Murano businesses. In such case the source code and repo is obfuscated for the template users. Learn more about [Murano Exchange here](http://docs.exosite.com/reference/ui/exchange/authoring-elements-guide.md).
+This page describes the project structure used to set and update a Murano Solution. Murano templates can be used to publish it as template element on the Murano Exchange marketplace to make it available from other Murano businesses. Learn more about [Murano Exchange here](http://docs.exosite.com/reference/ui/exchange/authoring-elements-guide.md).
 
 ## Template directories structure
 
@@ -39,7 +37,7 @@ assets       | object | [See in the assets section](#assets-section)       | Tar
 endpoints    | object | [See in the endpoints section](#endpoints-section) | Target source files of the webservice back-end endpoints.
 modules      | object | [See in the modules section](#modules-section)     | Target reusable module source files.
 services     | object | [See in the services section](#services-section)   | Target source files of internal services event handlers.
-init_script  | string | [`./init.lua`](init.lua)                           | Relative Path of the solution initialization script file.<br>This script will be executed once at the end of the template setup and allow to initialize the solution configuration and data.<br>The file must contain valid lua script and may includes calls to other Lua Modules.
+init_script  | string | [`./init.lua`](init.lua)                           | Relative Path of the solution initialization script file. This script will be executed once at the end of the template setup and allow to initialize the solution configuration and data. The file must contain valid lua script and may includes calls to other Lua Modules.
 
 #### Info section
 
@@ -52,7 +50,7 @@ info:
   description: |
     In depth description of <template_name>
     With lots of details.
-  authors: ['Someone <b@someone.com> (http://someone.tumblr.com/)']
+  authors: ['Someone <b@someone.local> (http://someone.local/)']
   version: 1.0.0
 ```
 
@@ -61,8 +59,8 @@ Fieldname   | Format                                                            
 name        | string (`/^[\s-]+$/`)                                                                         | `myTemplate`                                               | Nice short and easy. This is the template name which do not relate to the solution name.
 summary     | string                                                                                        | `One line summary of template`                             | Short one line summary of this template.
 description | string                                                                                        | `In depth description of template with lots of details.`   | Longer, multiple paragraph explanation.
-authors     | List of string in format:<br>`'Full name <email.com> (link)'`<br>Each elements being optional | `['Someone <b@someone.com> (http://someone.tumblr.com/)']` | Who made this project.
-version     | string                                                                                        | `1.0.0 `                                                   | The version of the project.
+authors     | List of string in format: `'Full name <email.com> (link)'` Each elements being optional | `['Someone <b@someone.local> (http://someone.local/)']` | Who made this project.
+version     | string                                                                                        | `1.0.0`                                                    | The version of the project.
 
 #### Options section
 
@@ -91,21 +89,15 @@ safeConfigs   | string[]              |                      | Indicates which s
 abort_threshold | positive integer    | 4                    | Number of starting failed solution deployments before aborting a release. (If the first 4 solutions fail to deploy: abort)
 abort_ratio   | positive number       | 0.5                  | Ratio of failed solution deployments to cancel the release, starting from abort_threshold * 2. (With 10 solutions successfully deployed, if 6 solutions failed: abort.)
 
-
 #### Env Schema section
 
-You can define `env_schema` as a JSONSchema for the template environment variables accessed through `os.getenv("loglevel")`. Defined settings will then be available and validated on Murano solution settings page.
-
-_Note:_ Only string type is supported.
+You can define `env_schema` to add descriptions to environment variables accessed through `os.getenv("loglevel")` when viewed in the UI.
 
 ```yaml
 env_schema:
   description: my custom description
   loglevel:
-    type: string
     description: a loglevel
-    default: warn
-    enum: [debug, info, warn, error]
 ```
 
 #### Assets section
@@ -123,7 +115,7 @@ assets:
 Fieldname    | Format      | Example      | Description              | Default value
 -------------|-------------|--------------|--------------------------|--------------
 location     | string      | `assets`     | Root folder name containing the files.                                                                                               | `assets`
-include      | string/list | `'**/*'`     | Pattern (or list of patterns) to select files in the location directory.<br>The pattern search is relative to the `location` folder. | `'**/*'`
+include      | string/list | `'**/*'`     | Pattern (or list of patterns) to select files in the location directory. The pattern search is relative to the `location` folder. | `'**/*'`
 exclude      | list        | `['**/.*']`  | Pattern allowing to ignore files from the selection.                                                                                 | `['**/.*']`
 default_page | string      | `index.html` | Default asset to serve on the root path of the API `/`.                                                                              | `index.html`
 
@@ -144,7 +136,7 @@ endpoints:
 Fieldname | Format      | Example                              | Description                                                                                                                          | Default value
 ----------|-------------|--------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------
 location  | string      | `endpoints`                          | Root folder name containing the files.                                                                                               | `endpoints`
-include   | string/list | `'**/*.lua'`                         | Pattern (or list of patterns) to select files in the location directory.<br>The pattern search is relative to the `location` folder. | `'**/*.lua'`
+include   | string/list | `'**/*.lua'`                         | Pattern (or list of patterns) to select files in the location directory. The pattern search is relative to the `location` folder. | `'**/*.lua'`
 exclude   | list        | `['*_test.lua', '*_spec.lua']`       | Pattern allowing to ignore files from the selection.                                                                                 | `[]`
 cors      | object      | `{'origin': ['http://localhost:*']}` | Cross origin resource sharing permission setting.                                                                                    | `{}`
 
@@ -162,6 +154,7 @@ Selected files need to contains valid Lua script. Endpoints are defined using a 
 The `content_type` is optional and `application/json` is the default value.
 
 In addition to `--#ENDPOINT`, we enable you to define the following optional attributes:
+
 - `--#TAGS`, followed by a list of tags which are separated by space. eg: `--#TAGS public user`.
 - `--#SECURITY`, defines the authentication token needed for this endpoint, it could be `none`, `basic`, `bearer` or `apiKey`.
 - `--#RATELIMIT`, defines the requests per minute for this endpoint. eg: `--#RATELIMIT 1`.
@@ -171,10 +164,10 @@ In addition to `--#ENDPOINT`, we enable you to define the following optional att
 **Example: [./endpoints/example.lua](./endpoints/example.lua)**
 
 You can set global security and rate_limit in [services/webservice.yaml](./services/webservice.yaml) file by add the following properties:
+
 - `security_schemes`, defines all the security schemes for this solution, we support `basic`, `bearer` and `apiKey`.
 - `security`, defines the authentication token needed for this solution, it could be `basic`, `bearer` or `apiKey`.
 - `rate_limit`, defines the rate limit for this solution, the unit is request per minute per token or per IP if token is not required.
-
 
 ```lua
 --#ENDPOINT POST /api/user
@@ -200,18 +193,19 @@ modules:
 Fieldname | Format      | Example                        | Description                                                                                                                          | Default value
 ----------|-------------|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------
 location  | string      | `modules`                      | Root folder name containing the files.                                                                                               | `modules`
-include   | string/list | `'**/*.lua'`                   | Pattern (or list of patterns) to select files in the location directory.<br>The pattern search is relative to the `location` folder. | `'**/*.lua'`
+include   | string/list | `'**/*.lua'`                   | Pattern (or list of patterns) to select files in the location directory. The pattern search is relative to the `location` folder. | `'**/*.lua'`
 exclude   | list        | `['*_test.lua', '*_spec.lua']` | Pattern allowing to ignore files from the selection.                                                                                 | `[]`
 
 **Note:** If you want to allow instances of the solution to add/modify modules, define & use the [`safeNamespace` option](#options-section). All modules starting with the namespace will not be replace during template updates.
 
 ##### File content
 
-Selected file needs to contain valid Lua script and should be structured as standard Lua modules (http://lua-users.org/wiki/ModulesTutorial).
+Selected file needs to contain valid Lua script and should be structured as standard [Lua modules](http://lua-users.org/wiki/ModulesTutorial).
 
 **Important notes & best practices:**
-- All variables & functions should be tagged as *local*.
-- The trailing *return* statement is required.
+
+- All variables & functions should be tagged as _local_.
+- The trailing _return_ statement is required.
 - To avoid confusion with Murano Services, module file name should start with a lower-case letter.
 - The module file relative path matters.
 - As convention name your module object after the module name.
@@ -251,7 +245,7 @@ services:
 Fieldname | Format      | Example                        | Description                                                                                                                          | Default value
 ----------|-------------|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|--------------
 location  | string      | `services`                     | Root folder name containing the files.                                                                                               | `services`
-include   | string/list | `'**/*.lua'`                   | Pattern (or list of patterns) to select files in the location directory.<br>The pattern search is relative to the `location` folder. | `'**/*.lua'`
+include   | string/list | `'**/*.lua'`                   | Pattern (or list of patterns) to select files in the location directory. The pattern search is relative to the `location` folder. | `'**/*.lua'`
 exclude   | list | `['*_test.lua', '*_spec.lua']` | Pattern allowing to ignore files from the selection.                                                                                 | `[]`
 
 ##### _.lua_ Event logic files content
@@ -261,19 +255,19 @@ The service and event can be defined using the following Lua comment to define m
 
 There is 3 ways to defines event scripts:
 
-**File based**
+###### File based
 
 Each file contains a unique event script.
 
 1. The file name is composed as `<service_alias>_<event_type>.lua`
 
-Example: [./services/timer_timer.lua](./services/timer_timer.lua)
+   Example: [./services/timer_timer.lua](./services/timer_timer.lua)
 
 2. In nested folder: the parent is the service alias & the file name is the event type.
 
-Example: [./services/user/account.lua](./services/user/account.lua)
+   Example: [./services/user/account.lua](./services/user/account.lua)
 
-**Tag based**
+###### Tag based
 
 You can also set multiple event script in a single file by using the tag:
 
@@ -299,7 +293,6 @@ print(context, event)
 
 If the <service_alias> value is not an existing service reference, the eventhandler will still be created using the provide value as 'script_key'.
 If a service is later added to the solution with a matching 'script_key' the eventhandler script will be automatically linked to the service.
-
 
 Find more information regarding eventhandlers on the [Murano Scripting Reference](http://docs.exosite.com/articles/working-with-apis/#script-execution).
 

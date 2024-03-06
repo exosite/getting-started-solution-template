@@ -6,7 +6,7 @@ info:
   description: |
     In depth description of <template_name>
     With lots of details.
-  authors: ['Someone <b@someone.com> (http://someone.tumblr.com/)']
+  authors: ["Someone <b@someone.local> (http://someone.local/)"]
   version: 1.0.0
 
 ####
@@ -24,7 +24,7 @@ options:
   # Service configuration & Eventhandler always follow a merge behavior
   merge: true, # To keep all existing items from solution that are not present in this template
   safeNamespace: vendor # Indicates the items with this prefix will not get remove or updated upon update
-  # This will let each solution user to add custom files & behaviors surviving template verion update.
+  # This will let each solution user to add custom files & behaviors surviving template version update.
   safeConfigs:
     # Indicates which service configuration settings, defined in the .yaml files from the /services folder, would not overload existing value during updates and allow user to customize it.
     # This is needed for any 'default' configuration value meant to be changed by user.
@@ -32,42 +32,36 @@ options:
     - interface.name # Persist only user changes on the 'name' parameters defined in ./services/interface/interface.yaml
     - config.auto_update
     # The ./services/webservice.yaml defines a default 'documented_endpoints' however as not specified here, changes will be overloaded
-    # - twilio # We don't need to whitelist twilio as we havn't defined any parameter in ./service/twilio.yaml
-    
+
   # Following options allows to customize de release abort behavior.
   # abort_threshold: 1 # If first deployed solution fails, cancel the release. Default=4
   # abort_ratio: 0.1 # If failures reach 10% of successes, cancel the release. Default=0.5
-   
+
 env_schema:
   description: This text will display on the Solution settings page.
   loglevel:
-    type: string
     description: a loglevel
-    default: warn
-    enum: [debug, info, warn, error]
-  another_env:
-    default: env
 
 assets:
   location: assets
-  include: '**/*'
-  exclude: ['**/.*']
+  include: "**/*"
+  exclude: ["**/.*"]
   default_page: index.html
 
 endpoints: # the schema.yaml file will be loaded automatically, no special configuration needed.
   location: endpoints
-  include: '**/*.lua'
-  exclude: ['*_test.lua', '*_spec.lua']
-  cors: {'origin': ['http://localhost:*']}
+  include: "**/*.lua"
+  exclude: ["*_test.lua", "*_spec.lua"]
+  cors: { "origin": ["http://localhost:*"] }
 
 modules:
   location: modules
-  include: '**/*.lua'
-  exclude: ['*_test.lua', '*_spec.lua']
+  include: "**/*.lua"
+  exclude: ["*_test.lua", "*_spec.lua"]
 
 services: # Also applies for service configuration using .yaml format.
   location: services
-  include: '**/*.lua'
-  exclude: ['*_test.lua', '*_spec.lua']
+  include: "**/*.lua"
+  exclude: ["*_test.lua", "*_spec.lua"]
 
 init_script: init.lua
